@@ -9,7 +9,7 @@ if (@ARGV <2) {die "usage: please specify input chr_file and fasta_file"; };
 my ($chr_file,$fasta_file);
 GetOptions ("chr_file=s"=>\$chr_file, "fasta_file=s"=>\$fasta_file);
 
-my (%pos_scaff, %chr)=();
+my (%pos_scaff, %chr, %FH)=();
 open (CHR_FILE, "< $chr_file");
 <CHR_FILE>; #remove header
 while (<CHR_FILE>){
@@ -19,7 +19,13 @@ while (<CHR_FILE>){
 	$chr{$chr}=1;
 }
 
+foreach my $key (sort keys %chr){
+	my $file=$key . ".fa";
+	open (my $fh, ">", $file);
+	$FH{$key}=$fh;
+}
 
+open (OUT2, ">> not.mapped.fa") or die "cannot open output file for not.mapped.fa";
 
 $/=">"; ## set the record separator to be ">"
 open (FASTA, "< $fasta_file");
@@ -29,12 +35,11 @@ while (<FASTA>){
 	if (@fields>0){
 		my $id=shift @fields;
 		my $seq=join('', @fields);
-        if (exists $pos_scaff{$id}) {
+ 		if (exists $pos_scaff{$id}) {
 			my ($chr,$pos) = @{$pos_scaff{$id}}[0,1];
-			open (OUT, ">> ${chr}.txt") or die $!;
-			print OUT ">${id}_${chr}_${pos}\n$seq\n";
+			my $fh = $FH{$chr};
+			print $fh ">${id}_${chr}_${pos}\n$seq\n";
 		}else {
-			open (OUT2, ">> not.mapped.fa") or die $!;
 			print OUT2 ">$id\n$seq\n"
 		};
 	}
