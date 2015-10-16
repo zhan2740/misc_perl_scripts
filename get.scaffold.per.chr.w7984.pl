@@ -27,7 +27,7 @@ foreach my $key (sort keys %chr){
 	$FH{$key}=$fh;
 }
 
-open (OUT2, ">> not.mapped.fa") or die "cannot open output file for not.mapped.fa";
+open (OUT2, "> not.mapped.fa") or die "cannot open output file for not.mapped.fa";
 
 ################# This is the main program to separate single genome wide build into chromosome specific builds.
 $/=">"; ## set the record separator to be ">"
