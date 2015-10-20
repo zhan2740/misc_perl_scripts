@@ -14,6 +14,6 @@ This is a driver script to generate text files to batch process multiple jobs. T
   (3) --outdir your BLAST output path
 
 ### vcf.sum script
-This program takes vcf and GFF files and count how many SNPs are within a gene model and if the SNP is a true SNP, or likely representing universal differences between the reference genome and the sequenced genome
+This program takes vcf and GFF files and count how many SNPs are within a gene model and if the SNP is a true SNP representing true differences between the reference genome and the sequenced genome; Or if the SNP is a heterozygous one that has multiple alleles within the sequenced sample or populations;
 
 
