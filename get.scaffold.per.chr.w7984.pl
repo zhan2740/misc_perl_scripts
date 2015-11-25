@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-use Data::Dumper::Simple;
 use Getopt::Long;
 use List::Util qw (sum);
 
