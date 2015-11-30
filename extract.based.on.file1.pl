@@ -17,6 +17,7 @@ while (<IN1>){
 my $file2=shift;
 open (IN2, "<", $file2);
 my $header=<IN2>;
+print $header; 
 
 while (<IN2>){
 	$_=~s/[\r|\n]//g;
